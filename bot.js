@@ -224,10 +224,14 @@ async function startBot() {
     const { state, saveCreds } = await useMultiFileAuthState('sessions');
 
     sock = makeWASocket({
-      auth: state,
-      printQRInTerminal: true,
-      logger: baileyLogger
-    });
+  auth: state,
+  printQRInTerminal: false,
+  pairingCode: true,           // Enables pairing code
+  logger: baileyLogger,
+  connectTimeoutMs: 60000,
+  defaultQueryTimeoutMs: 0,
+  keepAliveIntervalMs: 30000,
+});
 
     sock.ev.on('connection.update', async (update) => {
       const { connection, lastDisconnect } = update;
