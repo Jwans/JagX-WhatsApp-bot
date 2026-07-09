@@ -200,6 +200,7 @@ const showStatus = () => {
 
 // Simple logger object for Baileys - no logger.child() method
 const baileyLogger = {
+  child: () => baileyLogger,
   trace: () => {},
   debug: () => {},
   info: (msg) => logger(msg),
