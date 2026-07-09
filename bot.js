@@ -27,7 +27,12 @@ let isConnected = false;
 const logger = (msg, type = 'info') => {
   const timestamp = new Date().toISOString();
   const logEntry = `[${timestamp}] ${msg}\n`;
-  fs.appendFileSync('logs/bot.log', logEntry);
+  
+  try {
+    fs.appendFileSync('logs/bot.log', logEntry);
+  } catch (err) {
+    console.error('Failed to write to log file:', err.message);
+  }
   
   switch(type) {
     case 'success':
@@ -193,6 +198,16 @@ const showStatus = () => {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 };
 
+// Simple logger object for Baileys - no logger.child() method
+const baileyLogger = {
+  trace: () => {},
+  debug: () => {},
+  info: (msg) => logger(msg),
+  warn: (msg) => logger(msg, 'warn'),
+  error: (msg) => logger(msg, 'error'),
+  fatal: (msg) => logger(msg, 'error')
+};
+
 async function startBot() {
   try {
     console.clear();
@@ -210,13 +225,7 @@ async function startBot() {
     sock = makeWASocket({
       auth: state,
       printQRInTerminal: true,
-      logger: {
-        trace: () => {},
-        debug: () => {},
-        info: (msg) => logger(msg),
-        warn: (msg) => logger(msg, 'warn'),
-        error: (msg) => logger(msg, 'error')
-      }
+      logger: baileyLogger
     });
 
     sock.ev.on('connection.update', async (update) => {
@@ -244,20 +253,20 @@ async function startBot() {
     sock.ev.on('creds.update', saveCreds);
 
     sock.ev.on('messages.upsert', async (m) => {
-      const msg = m.messages[0];
-      if (!msg.message) return;
-      if (msg.key.fromMe) return;
-      if (msg.key.remoteJid === 'status@broadcast') return;
-
-      const text = msg.message.conversation || msg.message.extendedTextMessage?.text || '';
-      if (!text.startsWith(PREFIX)) return;
-
-      const args = text.slice(PREFIX.length).split(/\s+/);
-      const cmd = args[0].toLowerCase();
-
-      logger(`Command: ${cmd} from ${msg.key.remoteJid}`);
-
       try {
+        const msg = m.messages[0];
+        if (!msg.message) return;
+        if (msg.key.fromMe) return;
+        if (msg.key.remoteJid === 'status@broadcast') return;
+
+        const text = msg.message.conversation || msg.message.extendedTextMessage?.text || '';
+        if (!text.startsWith(PREFIX)) return;
+
+        const args = text.slice(PREFIX.length).split(/\s+/);
+        const cmd = args[0].toLowerCase();
+
+        logger(`Command: ${cmd} from ${msg.key.remoteJid}`);
+
         if (cmd === 'menu') {
           await sock.sendMessage(msg.key.remoteJid, { text: showMenu() });
         } else if (cmd === 'help') {
@@ -272,7 +281,7 @@ async function startBot() {
           await sock.sendMessage(msg.key.remoteJid, { text: `❌ Unknown command: ${PREFIX}${cmd}\n\nType ${PREFIX}menu to see all commands` });
         }
       } catch (error) {
-        logger(`Error handling command: ${error.message}`, 'error');
+        logger(`Error handling message: ${error.message}`, 'error');
       }
     });
 
