@@ -1,11 +1,12 @@
 # 🤖 JagX WhatsApp Bot
 
 ![JagX Logo](https://img.shields.io/badge/JagX-WhatsApp%20Bot-green?style=for-the-badge)
-![License](https://img.shields.io/badge/License-JRILICENSE-blue?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-2.0.0-brightgreen?style=for-the-badge)
 
 **Created by:** JRILICENSE & JagX  
-**Version:** 1.0.0  
-**Status:** ✅ Fully Functional
+**Version:** 2.0.0  
+**Status:** ✅ Production Ready - All Bugs Fixed!
 
 ---
 
@@ -112,6 +113,16 @@ docker run -it jagx-bot
 
 ---
 
+## 🐛 Fixed Issues (v2.0.0)
+
+✅ **Fatal Error Fixed:** "logger.child is not a function"  
+✅ **Improved Error Handling:** Better exception handling throughout  
+✅ **Logging Fixed:** Proper file logging with error handling  
+✅ **Message Events:** Added try-catch blocks for reliability  
+✅ **Credentials:** Updated JRILICENSE & JagX credits  
+
+---
+
 ## 🔐 Connection Methods
 
 ### QR Code Method
@@ -136,46 +147,12 @@ Send `.menu` to any WhatsApp chat to see all commands!
 .menu          - Show main menu
 .help          - Show help
 .status        - Bot status
+.ping          - Test connection
 .viewonce      - View once message
 .weather       - Weather info
 .translate     - Translate text
 .joke          - Get joke
 ```
-
----
-
-## 📦 Supported Platforms (20+)
-
-✅ **Desktop/Laptop:**
-- Windows (7, 10, 11)
-- macOS (10.12+)
-- Linux (All distributions)
-
-✅ **Mobile:**
-- Termux (Android)
-- Linux Mobile (Ubuntu Touch)
-
-✅ **Cloud Platforms:**
-- Railway.app
-- Heroku
-- Render.com
-- Replit
-- Glitch.com
-- VPS (DigitalOcean, Linode, Vultr, Hetzner)
-- AWS EC2
-- Oracle Cloud
-- Google Cloud
-- Azure
-
-✅ **Containerization:**
-- Docker
-- Docker Compose
-- Kubernetes
-
-✅ **Platform-as-a-Service:**
-- Aiven
-- PythonAnywhere
-- Paiza.io
 
 ---
 
@@ -188,23 +165,9 @@ Send `.menu` to any WhatsApp chat to see all commands!
 
 ---
 
-## 🔧 Installation Guides
-
-Detailed setup scripts available:
-- `setup-termux.sh` - Termux/Android
-- `setup-windows.bat` - Windows
-- `setup-linux.sh` - Linux (auto-detects distro)
-- `setup-mac.sh` - macOS
-- `setup-vps.sh` - VPS/Servers
-- `setup-docker.sh` - Docker
-- `Dockerfile` - Docker container
-- `INSTALLATION_GUIDE.md` - Complete guide
-
----
-
 ## 📝 License
 
-**JRILICENSE** - All rights reserved © 2024
+**MIT License** - See [LICENSE](LICENSE) file for details
 
 **Created by:**
 - JRILICENSE
@@ -218,6 +181,6 @@ This bot is for educational purposes only. Users are responsible for complying w
 
 ---
 
-**Version:** 1.0.0 | **Status:** ✅ Production Ready
+**Version:** 2.0.0 | **Status:** ✅ Production Ready
 
 🌟 Star this repo if you find it useful!
